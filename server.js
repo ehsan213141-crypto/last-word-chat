@@ -9,16 +9,23 @@ const io = new Server(server);
 
 const PORT = process.env.PORT || 3000;
 
-// Serve static files
+// Static files serve karo
 app.use(express.static(path.join(__dirname)));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Socket.io logic
 io.on('connection', (socket) => {
   console.log('A user connected');
   
+  // Jab message aaye to sab ko bhejo
+  socket.on('chat message', (data) => {
+    io.emit('chat message', data);
+  });
+  
+  // Jab user leave kare
   socket.on('disconnect', () => {
     console.log('User disconnected');
   });
