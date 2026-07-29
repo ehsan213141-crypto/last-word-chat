@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const SALT_ROUNDS = 10;
 const SELF_DESTRUCT_MS = 10000; // 10 seconds after the receiver opens a message
 
@@ -201,6 +201,10 @@ io.on('connection', (socket) => {
     );
   });
 
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+  console.log(`Server running on port ${port}`)
+});
   socket.on('disconnect', () => {
     onlineUsers.delete(username);
     broadcastUserList();
