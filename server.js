@@ -205,12 +205,10 @@ const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log(`Server running on port ${port}`)
 });
-  socket.on('disconnect', () => {
-    onlineUsers.delete(username);
-    broadcastUserList();
-  });
-});
 
-server.listen(PORT, () => {
-  console.log(`💀 LAST WORD is running at http://localhost:${PORT}`);
+socket.on('disconnect', () => {
+  onlineUsers.delete(username);
+  broadcastUserList();
+});
+  });
 });
